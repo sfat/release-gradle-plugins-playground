@@ -1,4 +1,4 @@
-# Nyx Changelog
+# Changelog
 
 {{#releases}}
 ## [{{name}}](https://github.com/mooltiverse/nyx/releases/tag/{{name}}) ({{date}})
