@@ -1,1 +1,32 @@
+plugins {
+    id "com.mooltiverse.oss.nyx" version "2.3.0"
+}
+
 rootProject.name = 'release-gradle-plugins-playground'
+
+nyx {
+    preset = 'simple'
+    changelog {
+        path = 'CHANGELOG.md'
+    }
+    releaseTypes {
+        publicationServices = [ 'github' ]
+        items {
+            mainline {
+                description = '{{#fileContent}}build/CHANGELOG.md{{/fileContent}}'
+                gitCommit = 'true'
+            }
+        }
+    }
+    services {
+        github {
+            type = 'GITHUB'
+            options {
+                // The authentication token is read from the GH_TOKEN environment variable.
+                AUTHENTICATION_TOKEN = '{{#environmentVariable}}GH_TOKEN{{/environmentVariable}}'
+                REPOSITORY_NAME = "release-gradle-plugins-playground"
+                REPOSITORY_OWNER = "sfat"
+            }
+        }
+    }
+}
