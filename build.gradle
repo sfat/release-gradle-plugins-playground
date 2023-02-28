@@ -1,11 +1,13 @@
+import se.bjurr.gitchangelog.plugin.gradle.GitChangelogSemanticVersionTask
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.0.3'
     id 'io.spring.dependency-management' version '1.1.0'
+    id "se.bjurr.gitchangelog.git-changelog-gradle-plugin" version "1.77.3"
 }
 
 group = 'me.sfat'
-version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
 repositories {
@@ -19,4 +21,13 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+
+// Optional config if you want to configure versioning
+tasks.register('gitChangelogVersionTask', GitChangelogSemanticVersionTask) {
+    suffixSnapshot = true;
+    majorVersionPattern = "^[Bb]reaking"
+    minorVersionPattern = "[Ff]eature"
+    patchVersionPattern = "[Ff]ix"
 }
