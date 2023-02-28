@@ -3,7 +3,15 @@
 
 ## 0.2.0 (2023-02-28)
 
+### chore
+
+* [] chore: fix github workflow (Andrei Sfat)
+
+* [] chore: add main github workflow (Andrei Sfat)
+
 ### feat
+
+* [] feat: added TestResponse (Andrei Sfat)
 
 * [] feat: added test endpoint (Andrei Sfat)
 
