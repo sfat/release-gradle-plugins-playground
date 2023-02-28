@@ -173,9 +173,9 @@ releaseTypes:
       gitPush: "true"
       gitTag: "true"
       matchBranches: "^(master|main)$"
-      matchEnvironmentVariables:
-        CI: "^true$"                 # only match this release type when running on CI servers
-      matchWorkspaceStatus: "CLEAN"  # only match this release type when the repository is clean
+#      matchEnvironmentVariables:
+#        CI: "^true$"                 # only match this release type when running on CI servers
+#      matchWorkspaceStatus: "CLEAN"  # only match this release type when the repository is clean
       publish: "true"
     maturity:
       description: "{{#fileContent}}build/CHANGELOG.md{{/fileContent}}"
@@ -283,8 +283,9 @@ services:
   github:
     type: "GITHUB"
     options:
-      AUTHENTICATION_TOKEN: "{{#environmentVariable}}PAT{{/environmentVariable}}"
+      AUTHENTICATION_TOKEN: "{{#environmentVariable}}GH_TOKEN{{/environmentVariable}}"
       REPOSITORY_NAME: "release-gradle-plugins-playground"
       REPOSITORY_OWNER: "sfat"
-resume: true
+#resume: true
+verbosity: "INFO"
 stateFile: "build/.nyx-state.json"

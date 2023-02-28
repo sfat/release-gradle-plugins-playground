@@ -90,9 +90,7 @@ jobs:
           path: 'build/libs/'
       - name: Publish with Gradle
         env:
-          PAT: ${{ secrets.PAT }}
-          ORG_GRADLE_PROJECT_gitHubUser: ${{ github.actor }}
-          ORG_GRADLE_PROJECT_gitHubToken: ${{ secrets.PAT }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew nyxMake nyxMark nyxPublish --build-cache --stacktrace
       - name: Archive Nyx state file
         uses: actions/upload-artifact@v3
@@ -143,7 +141,7 @@ jobs:
           gradle-distribution-sha-256-sum-warning: false
       - name: Release with Gradle
         env:
-          PAT: ${{ secrets.PAT }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew release --build-cache --stacktrace
       - name: Archive Nyx state file
         uses: actions/upload-artifact@v3
