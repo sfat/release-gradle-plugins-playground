@@ -6,7 +6,6 @@ rootProject.name = 'release-gradle-plugins-playground'
 
 nyx {
     preset = 'simple'
-    stateFile = '.nyx-state.yml'
     changelog {
         path = 'CHANGELOG.md'
     }
