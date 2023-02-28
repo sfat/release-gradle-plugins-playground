@@ -3,32 +3,3 @@ plugins {
 }
 
 rootProject.name = 'release-gradle-plugins-playground'
-
-nyx {
-    preset = 'simple'
-    changelog {
-        path = 'CHANGELOG.md'
-    }
-    releaseTypes {
-        publicationServices = [ 'github' ]
-        items {
-            mainline {
-                description = '{{#fileContent}}CHANGELOG.md{{/fileContent}}'
-                gitCommit = 'true'
-                gitPush = 'true'
-                gitTag = 'true'
-            }
-        }
-    }
-    services {
-        github {
-            type = 'GITHUB'
-            options {
-                // The authentication token is read from the GH_TOKEN environment variable.
-                AUTHENTICATION_TOKEN = '{{#environmentVariable}}GH_TOKEN{{/environmentVariable}}'
-                REPOSITORY_NAME = "release-gradle-plugins-playground"
-                REPOSITORY_OWNER = "sfat"
-            }
-        }
-    }
-}
