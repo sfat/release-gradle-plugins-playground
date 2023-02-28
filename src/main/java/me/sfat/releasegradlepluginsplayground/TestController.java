@@ -10,7 +10,11 @@ import java.util.UUID;
 public class TestController {
 
     @GetMapping("/test/endpoint")
-    public ResponseEntity<String> testEndpoint() {
-        return ResponseEntity.ok(UUID.randomUUID().toString());
+    public ResponseEntity<TestResponse> testEndpoint() {
+        return ResponseEntity.ok(new TestResponse(UUID.randomUUID().toString()));
+    }
+
+    public record TestResponse(String name) {
+
     }
 }
