@@ -13,7 +13,7 @@ nyx {
         publicationServices = [ 'github' ]
         items {
             mainline {
-                description = '{{#fileContent}}build/CHANGELOG.md{{/fileContent}}'
+                description = '{{#fileContent}}CHANGELOG.md{{/fileContent}}'
                 gitCommit = 'true'
             }
         }
