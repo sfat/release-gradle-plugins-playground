@@ -12,6 +12,8 @@ jobs:
       newRelease: ${{ steps.nyx.outputs.newRelease }}
     runs-on: ubuntu-latest
     steps:
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
       # This job only runs nyxInfer to produce the initial version and initializes the Gradle remote cache
       - name: Init with Gradle
         run: ./gradlew nyxInfer --build-cache --stacktrace
@@ -40,10 +42,8 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 19
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-      - name: Make Git ignore execute permission changes in files (like gradlew)
-        run: git config core.fileMode false
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
       # Start from the -init pipeline cache and save the job output pipeline cache as -build-java
       - name: Set up the pipeline cache bringing the Nyx state
         uses: actions/cache@v3
@@ -110,7 +110,7 @@ jobs:
           path: build/.nyx-state.json
   release:
     name: Release
-#    needs: publish
+    needs: build-java
     # Run this job only if:
     # - the Docker, Java or Go files have changed
     # - a new release must be issued (this flag is inferred by Nyx), in which case we rebuild and test everything
@@ -126,10 +126,8 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 19
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-      - name: Make Git ignore execute permission changes in files (like gradlew)
-        run: git config core.fileMode false
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
       # Start from the -publish pipeline cache and save the job output pipeline cache as -release
       - name: Set up the pipeline cache bringing the Nyx state
         uses: actions/cache@v3
