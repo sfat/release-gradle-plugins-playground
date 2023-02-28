@@ -283,12 +283,8 @@ services:
   github:
     type: "GITHUB"
     options:
-      # The GH_TOKEN variable is fetched from the "secrets" context and passed as an environment variable.
-      # See:
-      # - https://docs.github.com/en/actions/security-guides/automatic-token-authentication
-      # - https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
-      AUTHENTICATION_TOKEN: "{{#environmentVariable}}GH_TOKEN{{/environmentVariable}}"
-      REPOSITORY_NAME: "release-gradle-plugins-playground/"
+      AUTHENTICATION_TOKEN: "{{#environmentVariable}}PAT{{/environmentVariable}}"
+      REPOSITORY_NAME: "release-gradle-plugins-playground"
       REPOSITORY_OWNER: "sfat"
 resume: true
 stateFile: "build/.nyx-state.json"
