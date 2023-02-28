@@ -92,7 +92,7 @@ jobs:
         env:
           PAT: ${{ secrets.PAT }}
           ORG_GRADLE_PROJECT_gitHubUser: ${{ github.actor }}
-          ORG_GRADLE_PROJECT_gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          ORG_GRADLE_PROJECT_gitHubToken: ${{ secrets.PAT }}
         run: ./gradlew nyxMake nyxMark nyxPublish --build-cache --stacktrace
       - name: Archive Nyx state file
         uses: actions/upload-artifact@v3
