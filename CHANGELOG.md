@@ -7,6 +7,20 @@
 
 * [] chore: fix github workflow (Andrei Sfat)
 
+* [] chore: fix github workflow (Andrei Sfat)
+
+* [] chore: fix github workflow (Andrei Sfat)
+
+* [] chore: fix github workflow (Andrei Sfat)
+
+* [] chore: fix github workflow (Andrei Sfat)
+
+* [] chore: fix github workflow (Andrei Sfat)
+
+* [] chore: change github workflow (Andrei Sfat)
+
+* [] chore: fix github workflow (Andrei Sfat)
+
 * [] chore: add main github workflow (Andrei Sfat)
 
 ### feat
