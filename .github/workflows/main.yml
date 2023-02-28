@@ -110,7 +110,7 @@ jobs:
           path: build/.nyx-state.json
   release:
     name: Release
-    needs: publish
+#    needs: publish
     # Run this job only if:
     # - the Docker, Java or Go files have changed
     # - a new release must be issued (this flag is inferred by Nyx), in which case we rebuild and test everything
