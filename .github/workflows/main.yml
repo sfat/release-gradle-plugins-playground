@@ -72,6 +72,13 @@ jobs:
           key: pipeline-${{ github.run_id }}-${{ github.job }}
           restore-keys: |
             pipeline-${{ github.run_id }}-init
+      # Bootstrap (no restore-keys) the Java cache and store it as -build-java
+      - name: Set up the Java cache bringing Java artifacts
+        uses: actions/cache@v3
+        with:
+          path: |
+            build/
+          key: build-${{ github.run_id }}
       - name: Build
         run: ./gradlew build
       - name: Archive Nyx state file
@@ -85,7 +92,6 @@ jobs:
         with:
           name: jar
           path: 'build/libs/'
-          key: build-${{ github.run_id }}
       - name: Archive Nyx state file
         uses: actions/upload-artifact@v3
         if: ${{ always() }}
@@ -117,12 +123,12 @@ jobs:
           key: pipeline-${{ github.run_id }}-${{ github.job }}
           restore-keys: |
             pipeline-${{ github.run_id }}-init
-      - name: Pull the Build cache bringing artifacts from the upstream Build jobs
+      - name: Pull the Build cache bringing artifact from the upstream Build job
         uses: actions/cache@v3
         with:
           path: |
             build/
-          key: build-${{ github.run_id }}-${{ github.job }}
+          key: build-${{ github.run_id }}
       - name: Publish with Gradle
         env:
           GH_TOKEN: ${{ secrets.PAT }}
