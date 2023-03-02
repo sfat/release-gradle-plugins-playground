@@ -10,11 +10,20 @@ import java.util.UUID;
 public class TestController {
 
     @GetMapping("/api/v1/test/endpoint")
-    public ResponseEntity<TestResponseV1> testEndpoint() {
+    public ResponseEntity<TestResponseV1> testV1Endpoint() {
         return ResponseEntity.ok(new TestResponseV1(UUID.randomUUID().toString()));
     }
 
+    @GetMapping("/api/v2/test/endpoint")
+    public ResponseEntity<TestResponseV2> testV2Endpoint() {
+        return ResponseEntity.ok(new TestResponseV2(UUID.randomUUID().toString(), UUID.randomUUID().toString()));
+    }
+
     public record TestResponseV1(String name) {
+
+    }
+
+    public record TestResponseV2(String name, String address) {
 
     }
 }
