@@ -6,7 +6,7 @@ preset: "simple"
 releaseAssets:
   release-gradle-plugins-playground-{{version}}.jar:
     fileName: "release-gradle-plugins-playground-{{version}}.jar"
-    description: "Release gradle plugins playground jar {{version}}"
+    description: "release-gradle-plugins-playground-{{version}}.jar"
     type: "application/octet-stream"
     path: "build/libs/release-gradle-plugins-playground-{{version}}.jar"
 changelog:
