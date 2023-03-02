@@ -85,6 +85,7 @@ jobs:
         with:
           name: jar
           path: 'build/libs/'
+          key: build-${{ github.run_id }}
       - name: Archive Nyx state file
         uses: actions/upload-artifact@v3
         if: ${{ always() }}
@@ -116,6 +117,12 @@ jobs:
           key: pipeline-${{ github.run_id }}-${{ github.job }}
           restore-keys: |
             pipeline-${{ github.run_id }}-init
+      - name: Pull the Build cache bringing artifacts from the upstream Build jobs
+        uses: actions/cache@v3
+        with:
+          path: |
+            build/
+          key: build-${{ github.run_id }}-${{ github.job }}
       - name: Publish with Gradle
         env:
           GH_TOKEN: ${{ secrets.PAT }}
