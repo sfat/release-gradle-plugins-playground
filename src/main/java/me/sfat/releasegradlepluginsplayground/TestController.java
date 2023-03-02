@@ -18,12 +18,4 @@ public class TestController {
     public ResponseEntity<TestResponseV2> testV2Endpoint() {
         return ResponseEntity.ok(new TestResponseV2(UUID.randomUUID().toString(), UUID.randomUUID().toString()));
     }
-
-    public record TestResponseV1(String name) {
-
-    }
-
-    public record TestResponseV2(String name, String address) {
-
-    }
 }
