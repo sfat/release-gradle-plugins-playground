@@ -13,11 +13,6 @@ jobs:
     env:
       RELEASE_VERSION=${{ github.event.release.name }}
     steps:
-      - name: Dump env
-        run: env | sort
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
       - name: Fetch Github Release Asset
         uses: dsaltares/fetch-gh-release-asset@1.1.0
         with:
