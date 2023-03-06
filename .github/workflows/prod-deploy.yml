@@ -1,0 +1,21 @@
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to deploy"
+# Avoid running multiple pipelines concurrently to avoid overlapping releases
+concurrency:
+  group: prod-deploy
+  cancel-in-progress: false
+
+jobs:
+  download-release-asset:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: robinraju/release-downloader@v1.7
+        with:
+          tag: ${{ github.event.version.name }}"
+          fileName: '*.jar'
+          out-file-path: 'build/libs'
+      - name: List contents in build/libs
+        run: ls -larh build/libs
