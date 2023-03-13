@@ -9,7 +9,7 @@ import java.util.UUID;
 @RestController
 public class TestController {
 
-    @GetMapping("/api/v1/test/endpoint")
+    @GetMapping("/api/v1.0.0/test/endpoint")
     public ResponseEntity<TestResponseV1> testV1Endpoint() {
         return ResponseEntity.ok(new TestResponseV1(UUID.randomUUID().toString()));
     }
