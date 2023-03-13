@@ -29,7 +29,7 @@ releaseTypes:
     mainline:
       description: "{{#fileContent}}build/CHANGELOG.md{{/fileContent}}"
       collapseVersions: true
-      collapsedVersionQualifier: "{{#sanitizeLower}}{{branch}}{{/sanitizeLower}}"
+      collapsedVersionQualifier: "{{#sanitizeLower}}alpha{{/sanitizeLower}}"
       filterTags: "^({{configuration.releasePrefix}})?([0-9]\\d*)\\.([0-9]\\d*)\\.([0-9]\\d*)(-(alpha)(\\.([0-9]\\d*))?)?$"
       gitPush: "true"
       gitTag: "true"
