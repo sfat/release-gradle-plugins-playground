@@ -1,4 +1,4 @@
 # release-gradle-plugins-playground
 
 
-TES
+TEST

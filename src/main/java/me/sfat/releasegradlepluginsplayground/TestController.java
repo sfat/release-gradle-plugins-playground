@@ -19,4 +19,10 @@ public class TestController {
         // fixing something
         return ResponseEntity.ok(new TestResponseV2(UUID.randomUUID().toString(), UUID.randomUUID().toString()));
     }
+
+    @GetMapping("/api/v3/test/endpoint")
+    public ResponseEntity<TestResponseV2> testV3Endpoint() {
+        // fixing something
+        return ResponseEntity.ok(new TestResponseV2(UUID.randomUUID().toString(), UUID.randomUUID().toString()));
+    }
 }
