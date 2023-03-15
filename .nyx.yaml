@@ -27,6 +27,7 @@ releaseTypes:
   items:
     # "mainline" overrides the release type with the same name from the preset
     mainline:
+      collapseVersions: false
       description: "{{#fileContent}}build/CHANGELOG.md{{/fileContent}}"
       filterTags: "^({{configuration.releasePrefix}})?([0-9]\\d*)\\.([0-9]\\d*)\\.([0-9]\\d*)(-(alpha)(\\.([0-9]\\d*))?)?$"
       gitPush: "true"
