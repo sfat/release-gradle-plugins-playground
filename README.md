@@ -1,5 +1,5 @@
 # release-gradle-plugins-playground
-abcdefghijklmnoprstuvwxyz
+abcdefghijklmnoqprstuvwxyz
 1234567
 dasdadadadadada
 
