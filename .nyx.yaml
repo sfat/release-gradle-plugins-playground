@@ -28,22 +28,22 @@ releaseTypes:
     # "mainline" overrides the release type with the same name from the preset
     mainline:
       description: "{{#fileContent}}build/CHANGELOG.md{{/fileContent}}"
-      collapseVersions: true
-      collapsedVersionQualifier: "{{#sanitizeLower}}alpha{{/sanitizeLower}}"
       filterTags: "^({{configuration.releasePrefix}})?([0-9]\\d*)\\.([0-9]\\d*)\\.([0-9]\\d*)(-(alpha)(\\.([0-9]\\d*))?)?$"
       gitPush: "true"
       gitTag: "true"
-      matchBranches: "^(main)$"
+      matchBranches: "^(prod)$"
       matchEnvironmentVariables:
         CI: "^true$"                 # only match this release type when running on CI servers
       matchWorkspaceStatus: "CLEAN"  # only match this release type when the repository is clean
       publish: "true"
     prod:
       description: "{{#fileContent}}build/CHANGELOG.md{{/fileContent}}"
+      collapseVersions: true
+      collapsedVersionQualifier: "{{#sanitizeLower}}alpha{{/sanitizeLower}}"
       filterTags: "^({{configuration.releasePrefix}})?([0-9]\\d*)\\.([0-9]\\d*)\\.([0-9]\\d*)$"
       gitPush: "true"
       gitTag: "true"
-      matchBranches: "^(prod)$"
+      matchBranches: "^(main)$"
       matchEnvironmentVariables:
         CI: "^true$"                 # only match this release type when running on CI servers
       matchWorkspaceStatus: "CLEAN"  # only match this release type when the repository is clean
