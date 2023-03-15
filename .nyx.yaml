@@ -22,6 +22,7 @@ releaseTypes:
   enabled:
     - mainline
     - prod
+    - internal
   publicationServices:
     - github
   items:
