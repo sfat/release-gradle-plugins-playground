@@ -1,6 +1,7 @@
 # release-gradle-plugins-playground
 dasdadadadadada
 
+!@#$%^&*()_+
 
 dsadadad
 abracadabra
