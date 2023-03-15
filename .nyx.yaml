@@ -40,7 +40,6 @@ releaseTypes:
     integration:
       description: "{{#fileContent}}build/CHANGELOG.md{{/fileContent}}"
       collapseVersions: true
-      collapsedVersionQualifier: "alpha"
       gitPush: "true"
       gitTag: "true"
       matchBranches: "^(main)$"
