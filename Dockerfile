@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17.0.6_10-jre-focal as copy-and-run-jar
+FROM eclipse-temurin:17.0.6_10-jre-focal
 
 COPY build/libs/*.jar /app.jar
 
