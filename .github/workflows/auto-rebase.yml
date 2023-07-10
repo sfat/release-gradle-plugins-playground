@@ -2,21 +2,12 @@ name: Automatic Rebase
 on:
   issue_comment:
     types: [created]
-permissions:
-  contents: 'read'
-  id-token: 'write'
-  issues: 'write'
-  checks: 'write'
 jobs:
   rebase:
     name: Rebase
     runs-on: ubuntu-latest
     if: >-
-      github.event.issue.pull_request != '' &&
-      (
-        contains(github.event.comment.body, '/rebase') ||
-        contains(github.event.comment.body, '/autosquash')
-      )
+      github.event.issue.pull_request != ''
     steps:
       - name: Get PR details
         uses: xt0rted/pull-request-comment-branch@v1
@@ -30,7 +21,7 @@ jobs:
       - name: Checkout the latest code
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
       - name: Automatic Rebase
         uses: cirrus-actions/rebase@1.8
