@@ -6,6 +6,7 @@ permissions:
   issues: write
   pull-requests: write
   checks: write
+  statuses: write
 jobs:
   rebase:
     name: Rebase
