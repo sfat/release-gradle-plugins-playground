@@ -2,144 +2,18 @@ name: Main Workflow
 
 on:
   push:
-    branches: [ main,prod ]
-# Avoid running multiple pipelines concurrently to avoid overlapping releases and tags
-concurrency:
-  group: project
-  cancel-in-progress: false
+    branches: [ main ]
 jobs:
-  # Initialize the build process and infer the new version number
-  init:
-    outputs:
-      # Make the 'newRelease' outputs from the Nyx action available for other jobs
-      newRelease: ${{ steps.nyx.outputs.newRelease }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Git checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.PAT }}
-      - uses: actions/setup-java@v3
-        with:
-          distribution: corretto
-          java-version: 17
-      # Bootstrap (no restore-keys) the pipeline cache and store it as -init
-      # This cache only stores the .nyx-state.json file
-      - name: Set up the pipeline cache bringing the Nyx state
-        uses: actions/cache@v3
-        with:
-          path: |
-            build/
-          key: pipeline-${{ github.run_id }}-${{ github.job }}
-          #restore-keys: not used here, start from scratch
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
-      # This job only runs nyxInfer to produce the initial version and initializes the Gradle remote cache
-      - name: Init with Gradle
-        run: ./gradlew nyxInfer
-      # Run Nyx again (as a GitHub Action) to load the data from the State so that we can export useful job outputs
-      - name: Load Nyx data
-        id: nyx
-        uses: mooltiverse/nyx-github-action@main
-      - name: Archive Nyx state file
-        uses: actions/upload-artifact@v3
-        if: ${{ always() }}
-        with:
-          name: .nyx-state-${{ github.job }}.json
-          path: build/.nyx-state.json
   build:
-    needs: init
     runs-on: ubuntu-latest
     steps:
       - name: Git checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.PAT }}
       - uses: actions/setup-java@v3
         with:
           distribution: corretto
           java-version: 17
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
-      # Start from the -init pipeline cache and save the job output pipeline cache as -build
-      - name: Set up the pipeline cache bringing the Nyx state
-        uses: actions/cache@v3
-        with:
-          path: |
-            build/
-          key: pipeline-${{ github.run_id }}-${{ github.job }}
-          restore-keys: |
-            pipeline-${{ github.run_id }}-init
-      # Bootstrap (no restore-keys) the Java cache and store it as -build-java
-      - name: Set up the Java cache bringing Java artifacts
-        uses: actions/cache@v3
-        with:
-          path: |
-            build/
-          key: build-${{ github.run_id }}
-      - name: Build
+        uses: gradle/gradle-build-action@v2.5.1
+      - name: Build and run tests
         run: ./gradlew build
-      - name: Archive Nyx state file
-        uses: actions/upload-artifact@v3
-        if: ${{ always() }}
-        with:
-          name: .nyx-state-${{ github.job }}.json
-          path: build/.nyx-state.json
-      - name: Archive Jar
-        uses: actions/upload-artifact@v3
-        with:
-          name: jar
-          path: 'build/libs/'
-      - name: Archive Nyx state file
-        uses: actions/upload-artifact@v3
-        if: ${{ always() }}
-        with:
-          name: .nyx-state-${{ github.job }}.json
-          path: build/.nyx-state.json
-  publish-and-release:
-    needs: build
-    if: needs.init.outputs.newRelease == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Git checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.PAT }}
-      - uses: actions/setup-java@v3
-        with:
-          distribution: corretto
-          java-version: 17
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
-      # Start from the -init pipeline cache and save the job output pipeline cache as -publish
-      - name: Set up the pipeline cache bringing the Nyx state
-        uses: actions/cache@v3
-        with:
-          path: |
-            build/
-          key: pipeline-${{ github.run_id }}-${{ github.job }}
-          restore-keys: |
-            pipeline-${{ github.run_id }}-init
-      - name: Pull the Build cache bringing artifact from the upstream Build job
-        uses: actions/cache@v3
-        with:
-          path: |
-            build/
-          key: build-${{ github.run_id }}
-      - name: Publish with Gradle
-        env:
-          GH_TOKEN: ${{ secrets.PAT }}
-        run: ./gradlew nyxMake nyxMark nyxPublish
-      - name: Release with Gradle
-        env:
-          GH_TOKEN: ${{ secrets.PAT }}
-        run: ./gradlew release
-      - name: Archive Nyx state file
-        uses: actions/upload-artifact@v3
-        if: ${{ always() }}
-        with:
-          name: .nyx-state-${{ github.job }}.json
-          path: build/.nyx-state.json
