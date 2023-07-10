@@ -1,13 +1,11 @@
 name: Automatic Rebase
 on:
-  pull_request:
+  push:
     branches: [ main ]
 jobs:
   rebase:
     name: Rebase
     runs-on: ubuntu-latest
-    if: >-
-      github.event.issue.pull_request != ''
     steps:
       - name: Get PR details
         uses: xt0rted/pull-request-comment-branch@v1
