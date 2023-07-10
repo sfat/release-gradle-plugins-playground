@@ -1,13 +1,17 @@
 name: Automatic Rebase
 on:
-  push:
-    branches: [ main ]
+  issue_comment:
+    types: [created]
 jobs:
   rebase:
     name: Rebase
     runs-on: ubuntu-latest
     if: >-
-      github.event.issue.pull_request != ''
+      github.event.issue.pull_request != '' &&
+      (
+        contains(github.event.comment.body, '/rebase') ||
+        contains(github.event.comment.body, '/autosquash')
+      )
     steps:
       - name: Get PR details
         uses: xt0rted/pull-request-comment-branch@v1
