@@ -20,7 +20,7 @@ jobs:
         uses: myrotvorets/set-commit-status-action@master
         with:
           sha: ${{ steps.comment-branch.outputs.head_sha }}
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           status: pending
       - name: Checkout the latest code
         uses: actions/checkout@v3
