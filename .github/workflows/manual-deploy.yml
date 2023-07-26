@@ -1,4 +1,4 @@
-name: manual deploy
+name: manual deploy ${{ inputs.version }}
 on:
   workflow_dispatch:
     inputs:
