@@ -12,9 +12,8 @@ jobs:
       - if: inputs.version
         run: |
           {
-            echo "### :rocket: Deploy summary"
+            echo "### :rocket: Deploy summary on acceptance"
             echo "| Arg                 | Value |"
             echo "| ------------------- | ----- |"
             echo "| Version             | ${{ inputs.version }} |"
-            echo "| Environment         | acceptance |"
           } >> $GITHUB_STEP_SUMMARY
