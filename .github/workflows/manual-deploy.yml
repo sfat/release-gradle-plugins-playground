@@ -1,0 +1,20 @@
+name: manual deploy
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to deploy"
+
+jobs:
+  summarize:
+    runs-on: ubuntu-latest
+    steps:
+      - if: inputs.version
+        run: |
+          {
+            echo "### :rocket: Deploy summary"
+            echo "| Arg                 | Value |"
+            echo "| ------------------- | ----- |"
+            echo "| Version             | ${{ inputs.version }} |"
+            echo "| Environment         | acceptance |"
+          } >> $GITHUB_STEP_SUMMARY
