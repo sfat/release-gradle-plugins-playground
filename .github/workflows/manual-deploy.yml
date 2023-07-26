@@ -1,5 +1,5 @@
 name: manual deploy
-run-name: manual deploy with version ${{ inputs.version }}
+run-name: "manual deploy with version: ${{ inputs.version }}"
 on:
   workflow_dispatch:
     inputs:
@@ -7,7 +7,7 @@ on:
         description: "Version to deploy"
 
 jobs:
-  summarize:
+  summary:
     runs-on: ubuntu-latest
     steps:
       - if: inputs.version
