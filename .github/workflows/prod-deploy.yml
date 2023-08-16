@@ -11,8 +11,15 @@ concurrency:
 jobs:
   download-release-asset:
     runs-on: ubuntu-latest
+    
     steps:
-      - run: echo "${{ github.event.inputs.version }} ${{ github.inputs.version.trim() }}"
+      - name: Trim Input
+        id: sanitize_version
+        run: echo "::set-output name=output::${{ github.event.inputs.version }}" | xargs
+      - name: Use Trimmed Input
+        run: |
+          trimmed_input="${{ steps.sanitize_version.outputs.output }}"
+          echo "Trimmed input: $trimmed_input."
       - uses: actions/checkout@v3
       - uses: robinraju/release-downloader@v1.7
         with:
