@@ -18,7 +18,7 @@ jobs:
         id: sanitize_version
         run: |
           trimmed_input=$(echo "${{ github.event.inputs.version }}" | tr -d '[:space:]')
-          echo "trimmed_input=$trimmed_input" >> >> $GITHUB_OUTPUT
+          echo "trimmed_input=$trimmed_input" >> $GITHUB_OUTPUT
       - name: Use Trimmed Input
         run: |
           trimmed_input="${{ steps.sanitize_version.outputs.trimmed_input }}"
