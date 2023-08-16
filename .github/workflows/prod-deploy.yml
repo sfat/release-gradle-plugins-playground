@@ -3,6 +3,7 @@ on:
     inputs:
       version:
         description: "Version to deploy"
+        required: true
 # Avoid running multiple pipelines concurrently to avoid overlapping releases
 concurrency:
   group: prod-deploy
@@ -16,7 +17,7 @@ jobs:
       - name: Trim Input
         id: sanitize_version
         run: |
-          trimmed_input=$(echo "${{ github.event.inputs.input_string }}" | tr -d '[:space:]')
+          trimmed_input=$(echo "${{ github.event.inputs.version }}" | tr -d '[:space:]')
           echo "trimmed_input=$trimmed_input" >> >> $GITHUB_OUTPUT
       - name: Use Trimmed Input
         run: |
