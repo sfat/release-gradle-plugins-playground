@@ -15,11 +15,11 @@ jobs:
     steps:
       - name: Trim Input
         id: sanitize_version
-        run: echo "::set-output name=output::${{ github.event.inputs.version }}" | xargs
+        run: echo "output=${{ github.event.inputs.version }}" | tr -d '[:space:] >> $GITHUB_OUTPUT
       - name: Use Trimmed Input
         run: |
           trimmed_input="${{ steps.sanitize_version.outputs.output }}"
-          echo "Trimmed input: $trimmed_input."
+          echo "Trimmed input:$trimmed_input."
       - uses: actions/checkout@v3
       - uses: robinraju/release-downloader@v1.7
         with:
